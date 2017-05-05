@@ -38,9 +38,13 @@ try
 		throw 3;
 	};
 	_salesPrice = getNumber (missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "price");
+	_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "quality") / 10);
+	_salesPrice = (floor _salesPrice) max 1;
+	diag_log format["---- Item Price: %1 - %2",_salesPrice,_itemClassName];
 	if (_salesPrice <= 0) then
 	{
-		throw 4;
+		diag_log format["---- ERROR calculating Price: %1 - %2",_salesPrice,_itemClassName];
+		_salesPrice = 1000;
 	};
 	_playerMoney = _playerObject getVariable ["ExileMoney", 0];
 	if (_playerMoney < _salesPrice) then

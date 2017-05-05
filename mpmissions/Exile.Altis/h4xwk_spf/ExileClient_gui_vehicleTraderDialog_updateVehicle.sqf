@@ -16,6 +16,8 @@ _dialog = uiNameSpace getVariable ["RscExileVehicleTraderDialog", displayNull];
 _traderObject = uiNameSpace getVariable ["ExileCurrentTrader", objNull];
 _vehicleConfig = configFile >> "CfgVehicles" >> _vehicleClass;
 _salesPrice = getNumber(missionConfigFile >> "CfgExileArsenal" >> _vehicleClass >> "price");
+_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _vehicleClass >> "quality") / 10);
+_salesPrice = (floor _salesPrice) max 1;
 _pin = ctrlText (_dialog displayCtrl 4008);
 if(count _pin isEqualTo 4)then
 {

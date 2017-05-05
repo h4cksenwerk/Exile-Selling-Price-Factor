@@ -33,6 +33,8 @@ if (_index > -1) then
 	try 
 	{
 		_salesPrice = getNumber(missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "price");
+		_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "quality") / 10);
+		_salesPrice = (floor _salesPrice) max 1;
 		if (_salesPrice > (player getVariable ["ExileMoney", 0])) then 
 		{
 			throw 5;

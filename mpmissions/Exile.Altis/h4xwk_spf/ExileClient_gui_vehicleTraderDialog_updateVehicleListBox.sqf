@@ -25,6 +25,8 @@ lbClear _itemListControl;
 	{
 		_className = _x;
 		_salesPrice = getNumber(missionConfigFile >> "CfgExileArsenal" >> _className >> "price");
+		_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "quality") / 10);
+		_salesPrice = (floor _salesPrice) max 1;
 		_indexEntryIndex = _itemListControl lbAdd getText(configFile >> "CfgVehicles" >> _className >> "displayName");
 		_playerMoney = player getVariable ["ExileMoney", 0];
 		_quality = getNumber(missionConfigFile >> "CfgExileArsenal" >> _className >> "quality");

@@ -35,9 +35,13 @@ try
 		throw 3;
 	};
 	_salesPrice = getNumber (missionConfigFile >> "CfgExileArsenal" >> _vehicleClass >> "price");
+	_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _vehicleClass >> "quality") / 10);
+	_salesPrice = (floor _salesPrice) max 1;
+	diag_log format["---- Vehicle Price: %1 - %2",_salesPrice,_vehicleClass];
 	if (_salesPrice <= 0) then
 	{
-		throw 4;
+		diag_log format["---- ERROR calculating Price: %1 - %2",_salesPrice,_vehicleClass];
+		_salesPrice = 1000;
 	};
 	_playerMoney = _playerObject getVariable ["ExileMoney", 0];
 	if (_playerMoney < _salesPrice) then

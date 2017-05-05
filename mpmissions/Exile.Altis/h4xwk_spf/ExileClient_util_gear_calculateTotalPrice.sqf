@@ -14,6 +14,8 @@ _items = _this;
 _price = 0;
 {
 	_price = _price + (getNumber (missionConfigFile >> "CfgExileArsenal" >> _x >> "price"));
+	_price = _price * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _x >> "quality") / 10);
+	_price = (floor _price) max 1;
 }
 forEach _items;
 _price

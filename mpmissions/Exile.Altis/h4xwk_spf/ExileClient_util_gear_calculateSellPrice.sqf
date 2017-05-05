@@ -9,9 +9,21 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_className","_amount"];
+private["_className","_amount","_spm"];
 _className = _this;
 _amount = 0;
+
+if (isNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "spf")) then 
+{
+	_spm = getNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "spf");
+}
+else 
+{
+	_spm = getNumber (missionConfigFile >> "CfgTrading" >> "sellPriceFactor");
+};
+
+_spm = _spm * ((getNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "quality")) / 10 + 1);
+
 if (isNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "sellPrice")) then 
 {
 	_amount = getNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "sellPrice");
@@ -21,7 +33,7 @@ else
 	if (isNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "price")) then 
 	{
 		_amount = getNumber (missionConfigFile >> "CfgExileArsenal" >> _className >> "price");
-		_amount = _amount * (getNumber (missionConfigFile >> "CfgTrading" >> "sellPriceFactor"));
+		_amount = _amount * _spm;
 		_amount = (floor _amount) max 1;
 	};
 };

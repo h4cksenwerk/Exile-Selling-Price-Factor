@@ -56,6 +56,8 @@ if !((handgunWeapon player) isEqualTo "") then
 				_indexEntryIndex = _storeListBox lbAdd getText(configFile >> _configName >> _itemClassName >> "displayName");
 				_quality = getNumber(missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "quality");
 				_salesPrice = getNumber(missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "price");
+				_salesPrice = _salesPrice * ( 1 + getNumber (missionConfigFile >> "CfgExileArsenal" >> _itemClassName >> "quality") / 10);
+				_salesPrice = (floor _salesPrice) max 1;
 				_requiredRespect = getNumber(missionConfigFile >> "CfgTrading" >> "requiredRespect" >> format["Level%1",_quality]);
 				_qualityColor = [1, 1, 1, 1];
 				_popTabColor = [1, 1, 1, 1];
